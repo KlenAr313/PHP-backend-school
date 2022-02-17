@@ -31,7 +31,8 @@ class WriterService
 
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
-        return $stmt->execute();
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     function create(Writer $writer)
@@ -47,7 +48,8 @@ class WriterService
 
         $stmt->bind_param("sssis", $writer->firstName, $writer->lastName, $writer->bornIn, $writer->bornAt, $writer->died);
 
-        return $stmt->execute();
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     function modify(Writer $writer)
@@ -78,7 +80,8 @@ class WriterService
 
         $stmt->bind_param("i", $id);
 
-        return $stmt->execute();
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     function idExists($id)
