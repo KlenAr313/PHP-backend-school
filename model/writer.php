@@ -1,9 +1,6 @@
 <?php
 
-include('database.php');
-
 class Writer {
-    private $conn;
     private $id;
     public $firstName;
     public $lastName;
