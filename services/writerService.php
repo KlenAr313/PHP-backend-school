@@ -3,7 +3,7 @@
 include('../model/writer.php');
 include('../database.php');
 
-class BookService
+class WriterService
 {
     private $conn;
 
