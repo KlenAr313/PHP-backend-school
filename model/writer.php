@@ -1,7 +1,7 @@
 <?php
 
 class Writer {
-    private $id;
+    public $id;
     public $firstName;
     public $lastName;
     public $bornIn;
