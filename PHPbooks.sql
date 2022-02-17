@@ -29,7 +29,7 @@ CREATE TABLE `writers` (
   `lastName` varchar(100) NOT NULL,
   `bornIn` varchar(100) NOT NULL,
   `bornAt` int(11) NOT NULL,
-  `died` varchar(100)
+  `died` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `writers`
@@ -51,7 +51,7 @@ ALTER TABLE `books`
   ADD PRIMARY KEY (`id`),
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1,
   ADD UNIQUE KEY `IDX_Title` (`title`),
-  ADD FOREIGN KEY (`writerId`) REFERENCES writers(id);
+  ADD FOREIGN KEY (`writerId`) REFERENCES writers(id) ON DELETE CASCADE;
 
 INSERT INTO `books` (`id`, `title`, `category`, `publiched`, `writerId`) VALUES
 (1, 'Leviathan wakes', 'sci-fi', 2011, 1),
