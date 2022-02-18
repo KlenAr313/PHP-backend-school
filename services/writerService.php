@@ -1,6 +1,6 @@
 <?php
 
-include('../../model/writer.php');
+include_once('../../model/writer.php');
 include('../../database.php');
 
 class WriterService
@@ -33,7 +33,7 @@ class WriterService
         return $stmt->get_result()->fetch_object();
     }
 
-    function create(Writer $writer)
+    function create(WriterModel $writer)
     {
         $query = "INSERT INTO `writers`(`firstName`, `lastName`, `bornIn`, `bornAt`, `died`) VALUES (?,?,?,?,?)";
         $stmt = $this->conn->prepare($query);
@@ -48,7 +48,7 @@ class WriterService
         return $stmt->get_result()->fetch_object();
     }
 
-    function modify(Writer $writer)
+    function modify(WriterModel $writer)
     {
         $query = "UPDATE `writers` SET `firstName`= ?,`lastName`= ?,`bornIn`= ?, `bornAt`= ?, `died` = ? WHERE `id` = ?";
         $stmt = $this->conn->prepare($query);

@@ -9,7 +9,7 @@
 
     include_once("../../model/writer.php");
     include_once("../../services/writerService.php");
-    $writer = new Writer();
+    $writer = new WriterModel();
     $writerService = new WriterService();
 
     if ($_SERVER["REQUEST_METHOD"] != "POST"){
