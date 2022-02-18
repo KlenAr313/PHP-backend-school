@@ -1,6 +1,6 @@
 <?php
 
-    include '../vendor/autoload.php';
+    include '../../vendor/autoload.php';
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
 
@@ -8,7 +8,7 @@
     header("Access-Control-Request-Method: POST");
     header("Content-Type: application/json; charset=UTF-8");
 
-    include_once("../user.php");
+    include_once("../../user.php");
     $user = new User();
 
     if ($_SERVER["REQUEST_METHOD"] != "POST"){
@@ -36,7 +36,7 @@
         exit;
     }
     
-    $config = parse_ini_file('../config.ini');
+    $config = parse_ini_file('../../config.ini');
     $key = $config['key'];
     $payload = array(
         "iss" => "SLO",

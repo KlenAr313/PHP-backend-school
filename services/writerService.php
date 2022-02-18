@@ -1,7 +1,7 @@
 <?php
 
-include('../model/writer.php');
-include('../database.php');
+include('../../model/writer.php');
+include('../../database.php');
 
 class WriterService
 {
@@ -15,12 +15,12 @@ class WriterService
 
     function getAll()
     {
-        $query = "SELECT * FROM `writers`";
+        $query = "SELECT * FROM writers";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        return $stmt->get_result();
+        return $stmt->get_result()->fetch_object();
     }
 
     function getById($id) //should check idExists
@@ -30,7 +30,7 @@ class WriterService
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        return $stmt->get_result();
+        return $stmt->get_result()->fetch_object();
     }
 
     function create(Writer $writer)
@@ -45,7 +45,7 @@ class WriterService
         $stmt->bind_param("sssii", $writer->firstName, $writer->lastName, $writer->bornIn, $writer->bornAt, $writer->died);
 
         $stmt->execute();
-        return $stmt->get_result();
+        return $stmt->get_result()->fetch_object();
     }
 
     function modify(Writer $writer)
@@ -72,7 +72,7 @@ class WriterService
         $stmt->bind_param("i", $id);
 
         $stmt->execute();
-        return $stmt->get_result();
+        return $stmt->get_result()->fetch_object();
     }
 
     function idExists($id)

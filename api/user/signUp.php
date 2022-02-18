@@ -3,7 +3,7 @@
     header("Access-Control-Request-Method: POST");
     header("Content-Type: application/json; charset=UTF-8");
 
-    include_once("../user.php");
+    include_once("../../user.php");
     $user = new User();
 
     if ($_SERVER["REQUEST_METHOD"] != "POST"){
