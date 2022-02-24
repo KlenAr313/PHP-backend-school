@@ -1,7 +1,7 @@
 <?php
 
 include_once('../../model/writer.php');
-include('../../database.php');
+include_once('../../database.php');
 
 class WriterService
 {

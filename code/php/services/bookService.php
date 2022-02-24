@@ -1,7 +1,7 @@
 <?php
 
 include_once('../../model/book.php');
-include('../../database.php');
+include_once('../../database.php');
 
 class BookService
 {
