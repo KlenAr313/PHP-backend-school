@@ -64,7 +64,7 @@ class WriterService
         return true;
     }
 
-    function delete($id) //should check idExists
+    function delete($id)
     {
         $query = "DELETE FROM `writers` WHERE `id` = ?;";
         $stmt = $this->conn->prepare($query);
