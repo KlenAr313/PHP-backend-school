@@ -1,7 +1,7 @@
 <?php
 
-include('../model/writer.php');
-include('../database.php');
+include_once('../../model/writer.php');
+include('../../database.php');
 
 class WriterService
 {
@@ -15,25 +15,25 @@ class WriterService
 
     function getAll()
     {
-        $query = "SELECT * FROM `writers`";
+        $query = "SELECT * FROM writers";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        return $stmt->get_result();
+        return $stmt->get_result()->fetch_all();
     }
 
-    function getById($id) //should check idExists
+    function getById($id)
     {
         $query = "SELECT * FROM `writers` WHERE `id` like ?";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        return $stmt->get_result();
+        return $stmt->get_result()->fetch_object();
     }
 
-    function create(Writer $writer)
+    function create(WriterModel $writer)
     {
         $query = "INSERT INTO `writers`(`firstName`, `lastName`, `bornIn`, `bornAt`, `died`) VALUES (?,?,?,?,?)";
         $stmt = $this->conn->prepare($query);
@@ -48,7 +48,7 @@ class WriterService
         return $stmt->get_result();
     }
 
-    function modify(Writer $writer)
+    function modify(WriterModel $writer)
     {
         $query = "UPDATE `writers` SET `firstName`= ?,`lastName`= ?,`bornIn`= ?, `bornAt`= ?, `died` = ? WHERE `id` = ?";
         $stmt = $this->conn->prepare($query);
@@ -64,9 +64,9 @@ class WriterService
         return true;
     }
 
-    function delete($id) //should check idExists
+    function delete($id)
     {
-        $query = "DELETE FROM `writers` WHERE `id = ?";
+        $query = "DELETE FROM `writers` WHERE `id` = ?;";
         $stmt = $this->conn->prepare($query);
 
         $stmt->bind_param("i", $id);

@@ -1,7 +1,7 @@
 <?php 
 
 class Book {
-    private $id;
+    public $id;
     public $title;
     public $category;
     public $published;
