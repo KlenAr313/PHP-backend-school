@@ -1,7 +1,7 @@
 <?php
 
-include('../model/book.php');
-include('../database.php');
+include_once('../../model/book.php');
+include_once('../../database.php');
 
 class BookService
 {
@@ -20,17 +20,17 @@ class BookService
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        return $stmt->get_result();
+        return $stmt->get_result()->fetch_all();
     }
 
-    function getById($id) //should check idExists
+    function getById($id)
     {
         $query = "SELECT * FROM `books` WHERE `id` like ?";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        return $stmt->get_result();
+        return $stmt->get_result()->fetch_object();
     }
 
     function getByWrierId($id)
@@ -41,7 +41,7 @@ class BookService
         $stmt->bind_param("i", $id);
         $stmt->execute();
         if ($stmt->affected_rows == 0) return false;
-        return $stmt->get_result();
+        return $stmt->get_result()->fetch_all();
     }
 
     function create(Book $book)
@@ -73,9 +73,9 @@ class BookService
         return true;
     }
 
-    function delete($id) //should check idExists
+    function delete($id)
     {
-        $query = "DELETE FROM `books` WHERE `id = ?";
+        $query = "DELETE FROM `books` WHERE `id` = ?;";
         $stmt = $this->conn->prepare($query);
 
         $stmt->bind_param("i", $id);

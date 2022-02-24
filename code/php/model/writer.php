@@ -1,6 +1,6 @@
 <?php
 
-class Writer {
+class WriterModel {
     public $id;
     public $firstName;
     public $lastName;
