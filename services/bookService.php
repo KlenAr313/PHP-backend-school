@@ -1,6 +1,6 @@
 <?php
 
-include('../model/book.php');
+include_once('../model/book.php');
 include('../database.php');
 
 class BookService
@@ -20,7 +20,7 @@ class BookService
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        return $stmt->get_result()->fetch_object();
+        return $stmt->get_result()->fetch_all();
     }
 
     function getById($id) //should check idExists
@@ -41,7 +41,7 @@ class BookService
         $stmt->bind_param("i", $id);
         $stmt->execute();
         if ($stmt->affected_rows == 0) return false;
-        return $stmt->get_result()->fetch_object();
+        return $stmt->get_result()->fetch_all();
     }
 
     function create(Book $book)
@@ -55,7 +55,7 @@ class BookService
         $stmt->bind_param("ssii", $book->title, $book->category, $book->published, $book->writerId);
 
         $stmt->execute();
-        return $stmt->get_result()->fetch_object();
+        return $stmt->get_result();
     }
 
     function modify(Book $book)

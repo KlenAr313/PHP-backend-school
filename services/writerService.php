@@ -20,7 +20,7 @@ class WriterService
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        return $stmt->get_result()->fetch_object();
+        return $stmt->get_result()->fetch_all();
     }
 
     function getById($id) //should check idExists
@@ -45,7 +45,7 @@ class WriterService
         $stmt->bind_param("sssii", $writer->firstName, $writer->lastName, $writer->bornIn, $writer->bornAt, $writer->died);
 
         $stmt->execute();
-        return $stmt->get_result()->fetch_object();
+        return $stmt->get_result();
     }
 
     function modify(WriterModel $writer)
