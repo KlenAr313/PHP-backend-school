@@ -23,7 +23,7 @@ class WriterService
         return $stmt->get_result()->fetch_all();
     }
 
-    function getById($id) //should check idExists
+    function getById($id)
     {
         $query = "SELECT * FROM `writers` WHERE `id` like ?";
 
@@ -66,13 +66,13 @@ class WriterService
 
     function delete($id) //should check idExists
     {
-        $query = "DELETE FROM `writers` WHERE `id = ?";
+        $query = "DELETE FROM `writers` WHERE `id` = ?;";
         $stmt = $this->conn->prepare($query);
 
         $stmt->bind_param("i", $id);
 
         $stmt->execute();
-        return $stmt->get_result()->fetch_object();
+        return $stmt->get_result();
     }
 
     function idExists($id)

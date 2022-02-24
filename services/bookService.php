@@ -23,7 +23,7 @@ class BookService
         return $stmt->get_result()->fetch_all();
     }
 
-    function getById($id) //should check idExists
+    function getById($id)
     {
         $query = "SELECT * FROM `books` WHERE `id` like ?";
 
@@ -75,7 +75,7 @@ class BookService
 
     function delete($id) //should check idExists
     {
-        $query = "DELETE FROM `books` WHERE `id = ?";
+        $query = "DELETE FROM `books` WHERE `id` = ?;";
         $stmt = $this->conn->prepare($query);
 
         $stmt->bind_param("i", $id);
