@@ -73,7 +73,7 @@ class BookService
         return true;
     }
 
-    function delete($id) //should check idExists
+    function delete($id)
     {
         $query = "DELETE FROM `books` WHERE `id` = ?;";
         $stmt = $this->conn->prepare($query);
@@ -81,7 +81,7 @@ class BookService
         $stmt->bind_param("i", $id);
 
         $stmt->execute();
-        return $stmt->get_result()->fetch_object();
+        return $stmt->get_result();
     }
 
     function idExists($id)
