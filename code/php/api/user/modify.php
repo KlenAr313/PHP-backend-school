@@ -7,10 +7,8 @@
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
 
-    include_once("../../model/book.php");
-    include_once("../../services/bookService.php");
-    $book = new Book();
-    $bookService = new BookService();
+    include_once("../../user.php");
+    $user = new User();
 
     if ($_SERVER["REQUEST_METHOD"] != "PUT"){
         http_response_code(405);
@@ -19,19 +17,26 @@
     }
 
     $data = json_decode(file_get_contents("php://input"));
-    if (!isset($data->id) || !isset($data->title) || !isset($data->category) || 
-        !isset($data->published) || !isset($data->writerId) || !isset($data->jwt)) 
+    if (!isset($data->firstName) || !isset($data->lastName) || 
+        !isset($data->email) || !isset($data->password) || !isset($data->jwt)) 
     {
         http_response_code(406);
         echo json_encode(array("message" => "Bad JSON format."));
         exit;
     }
 
-    $book->id = $data->id;
-    $book->title = $data->title;
-    $book->category = $data->category;
-    $book->published = $data->published;
-    $book->writerId = $data->writerId;
+    $user->firstName = $data->firstName;
+    $user->lastName = $data->lastName;
+    $user->email = $data->email;
+    $user->password = $data->password;
+
+    $result = $user->modify($data);
+    if ($result === false)
+    {
+        http_response_code(404);
+        echo json_encode(array("message" => "Wrong e-mail or password"));
+        exit;
+    }
     
     $config = parse_ini_file('../../config.ini');
     $key = $config['key'];
@@ -42,8 +47,14 @@
         echo json_encode(array("message" => $th->getMessage()));
         exit;
     }
-    
-    $bookService->modify($book);
+
+    if ($decoded->data->email != $data->email)
+    {
+        http_response_code(403);
+        echo json_encode(array("message" => "Email address and token data does not match."));
+        exit;
+    }
+
     http_response_code(200);
-    echo json_encode(array("message" => "Successfully modify."));
+    echo json_encode(array("message" => "Successfully updated."));
 ?>
